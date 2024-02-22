@@ -22,21 +22,84 @@ public class StringOps {
     //////                                               ///////
     ////////////////////////////////////////////////////////////
     public static void main(String[] args) {
-        
+        String s = "   Hello     to";
+        System.out.println(camelCase(s));
     }
 
     public static String capVowelsLowRest (String string) {
-        // Write your code here:
-        return "";
+        char[] small = {'a', 'e', 'i', 'o', 'u'};
+        char[] capital = {'A', 'E', 'I', 'O', 'U'};
+        String toPrint = "";
+        boolean flag;
+        for (int i = 0; i < string.length(); i++) {
+            char currentChar = string.charAt(i);
+            flag = true; 
+            for (int j = 0; j < small.length; j++) {
+                if (currentChar == small[j] || currentChar == capital[j]) {
+                    toPrint += capital[j];
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                if ((currentChar >= 'A' && currentChar <= 'Z')) {
+                    toPrint += (char) (currentChar + 32);
+                } 
+                else {
+                    toPrint += currentChar;
+                }
+            }
+        }
+        
+        return toPrint;
     }
 
     public static String camelCase (String string) {
-        // Write your code here:
-        return "";
+            String toPrint ="";
+            boolean letter1=false; //encountered first letter
+            boolean newWord=true;
+            for (int i=0; i<string.length(); i++) {
+                char c=string.charAt(i);
+                if (c==32) {
+                    newWord=true;
+                } else {
+                    if (letter1) {
+                        if (newWord) {
+                            toPrint+=cap(c);
+                            newWord=false;
+                        } else {
+                            toPrint+=unCap(c);
+                        }
+                    } else {
+                        toPrint+=unCap(c);
+                        newWord=false;
+                        letter1=true;
+                    }
+                }
+            }
+            return toPrint;
+    }
+    public static char unCap (char c) {
+        if (65<c && c<90) return(char)(c+32);
+        return c;
+    }
+    public static char cap (char c) {
+        if (97<c && c<122) return(char)(c-32);
+        return c;
     }
 
     public static int[] allIndexOf (String string, char chr) {
-        // Write your code here:
-        return new int[1];
+        int count =0;
+        for (int i=0; i<string.length(); i++)
+            if (string.charAt(i) == chr)
+                count++;
+        int [] toPrint = new int [count];
+        count =0;
+        for (int j=0; j<string.length(); j++)
+            if (string.charAt(j) == chr){
+                toPrint[count] = j;
+                count++;
+            }
+        return toPrint;
     }
 }
